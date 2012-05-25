@@ -1,0 +1,106 @@
+<head>
+		<link type="text/css" rel="stylesheet" href="/static/main.css" />
+</head>
+
+<body>
+
+	<form method = "post">
+
+	 	<label>
+	 		<div>Candidate</div>
+	 		<input type="text" name="candidate_text" value="{{candidate_text}}">
+	 	</label>
+
+	{% if candidate_choices %}
+		<select name="candidate_id">
+			{% for cand in candidate_choices %}
+				<option value={{cand['id']}}>{{cand['name']}} ({{cand['state']}} {{cand['seat']}})</option>
+			{% endfor %}
+		</select>
+	{% endif %}
+
+	<input type="submit">
+		
+	</form>
+	
+
+{{error}}
+
+
+{% if contrib_data %}
+
+<h2>{{candidate_info[0]['name']}}</h2>
+
+	<table width=800>
+	
+	{% for contrib in contrib_data %}
+	
+		<tr>
+			<td class="bar-chart-subhead" align="left">
+				{{contrib['name']}}
+			</td>
+			
+			<td width = 600>
+			</td>
+		</tr>
+		
+		{% for recip in contrib['recipients'] %}
+		
+			{% if recip[0] == candidate_info[0]['name'] %}
+			
+				<tr>
+					<td align="right" style="font-family:Helvetica; font-weight:bold; font-size:10">
+
+						{{recip[0]}}
+
+					</td>
+					
+					<td width = 600 >
+						<div class="graph-bar" style="float:left; width:{{90 * recip[1]/max_contrib}}%; height:15px; background-color:#ED1313;">
+						</div>
+						<div class="bar-chart-bar-label" style="font-weight:bold;">
+								${{recip[1]}}
+						</div>
+					</td>
+				</tr>
+				
+			{% else %}
+			
+				<tr>
+					<td align="right" style="font-family:Helvetica; font-weight:italic; font-size:10">
+
+						{{recip[0]}}
+
+					</td>
+					
+					<td width = 600>
+						<div class="graph-bar" style="float:left; width:{{95 * recip[1]/max_contrib}}%; height:15px; border-color:#FFF; background-color:#827F7F;">
+						</div>
+						<div class="bar-chart-bar-label">
+
+								${{recip[1]}}
+
+						</div>
+						
+					</td>
+				</tr>
+			
+			{% endif %}
+		
+		{% endfor %}
+
+	{% endfor %}
+
+	</table>
+
+
+{% endif %}
+
+
+
+
+<br><br>
+
+
+
+</body>
