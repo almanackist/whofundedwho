@@ -34,14 +34,10 @@
 	<table width=800>
 	
 	{% for contrib in contrib_data %}
-	
 		<tr>
-			<td class="bar-chart-subhead" align="left">
+			<th colspan=2 class="bar-chart-subhead" align="left">
 				{{contrib['name']}}
-			</td>
-			
-			<td width = 600>
-			</td>
+			</th>
 		</tr>
 		
 		{% for recip in contrib['recipients'] %}
@@ -74,7 +70,7 @@
 					</td>
 					
 					<td width = 600>
-						<div class="graph-bar" style="float:left; width:{{95 * recip[1]/max_contrib}}%; height:15px; border-color:#FFF; background-color:#827F7F;">
+						<div class="graph-bar" style="float:left; width:{{90 * recip[1]/max_contrib}}%; height:15px; border-color:#FFF; background-color:#827F7F;">
 						</div>
 						<div class="bar-chart-bar-label">
 

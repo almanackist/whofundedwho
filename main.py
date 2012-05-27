@@ -89,7 +89,7 @@ class MainHandler(Handler):
             params['candidate_id'] = self.candidate_id
             params['contrib_data'] = self.contrib_data
             params['candidate_info'] = [c for c in self.candidate_choices if c['id'] == self.candidate_id]
-#            params['candidate_info'] = self.candidate_info
+            params['candidate_name'] = params['candidate_info'][0]['name']
 
         if self.contrib_data:
             for i in self.contrib_data:
@@ -100,7 +100,9 @@ class MainHandler(Handler):
                         i['recipients'].append([j['name'], int(float(j['total_amount']))])
                 except:
                     i['recipients'].append([params['candidate_info'][0]['name'], i['total_amount']])
-            #self.max_contrib = max([a['total_amount'] for a in self.contrib_data])
+                if params['candidate_name'] not in [tup[0] for tup in i['recipients']]:
+                    i['recipients'].append([params['candidate_info'][0]['name'], i['total_amount']])
+                    
             self.contributions = []
             for i in self.contrib_data:
                 for j in i['recipients']:
@@ -117,38 +119,6 @@ class MainHandler(Handler):
 
 
         self.render('main.html', **params)
-
-#
-#    # for each contributor to the candidate, print their total amount contributed,
-#    # plus a list of other top recipients of employee and direct contributions  
-#    for contrib in ie.pol.contributors(cand_id, cycle='2012', limit=10):
-#        print contrib['name'], "."*(30-len(contrib['name'])), contrib['total_amount'] #total contributed to candidate
-#        
-#        # insert a blank line
-#        add_bar_elements(0, ' ', 'b')
-#              
-#        # insert a 0-height bar labeled as the contributor
-#        add_bar_elements(0, contrib['name'].upper(), 'b')
-#        
-#        # list top recipients for each contributor...
-#        try:
-#            for recipient in ie.org.recipients(contrib['id'], cycle='2012', limit=5):
-#                print "\t", recipient['name'], recipient['employee_amount'], "(employees:", recipient['employee_count'], ")", recipient['direct_amount'], "(direct)"
-#                
-#                recipient_total = float(recipient['employee_amount']) + float(recipient['direct_amount'])
-#                
-#                if recipient['id'] == cand_id:  #add highlighting if recipient is selected candidate
-#                    add_bar_elements(recipient_total, recipient['name'], 'r')
-#                else:
-#                    add_bar_elements(recipient_total, recipient['name'].title(), 'b')
-#                   
-#        # ...unless there are no other recipients.
-#        except:
-#            print "\t(no other recipient data available)"
-#            add_bar_elements(float(contrib['total_amount']), ie.entities.metadata(cand_id)['name'], 'r')
-
-
-
 
 
 

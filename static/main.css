@@ -92,17 +92,16 @@ hr {
 }
 
 .bar-chart-subhead {
-	background-color: green;
 	font-family: "Helvetica"; 
 	font-weight: bold; 
 	font-size: 12;
 	padding-left: 10px;
-	color: white;
+	color: gray;
 	border-radius: 3;
 }
 
 .graph-bar + .graph-bar {
-	margin-top: 5px;
+	margin-top: 2px;
 }
 
 .bar-chart-bar-label {
@@ -112,4 +111,8 @@ hr {
 	color:#000; 
 	float:left; 
 	padding-right:2px;
+}
+
+table th {
+	border-top: 3px solid gray;
 }
